@@ -1,0 +1,56 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Invoice | Altaf| Bill</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  </head>
+
+
+  <body>
+
+    <section class="forms-section">
+        <h1 class="section-title">Animated Forms</h1>
+
+        <div class="forms">
+
+     <div class="form-wrapper">
+		<button type="button" class="switcher switcher-login">
+		  Login
+		  <span class="underline"></span>
+		</button>
+
+		<form class="form form-login" method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="hidden" name="form_type" value="formOne">
+		  <fieldset>
+			<legend>Please, enter your email and password for login.</legend>
+			<div class="input-block">
+			  <label for="login-email">Username</label>
+			  <input name="username" id="login-email" type="text" required>
+			</div>
+			<div class="input-block">
+			  <label for="login-password">Password</label>
+			  <input name="password" id="login-password" type="password" required>
+			</div>
+		  </fieldset>
+		  <button type="submit" class="btn-login">Login</button>
+		</form>
+
+
+	  </div>
+	</section>
+	  {% comment %} <script>
+        const switchers = [...document.querySelectorAll('.switcher')]
+        switchers.forEach(item => {
+            item.addEventListener('click', function() {
+                switchers.forEach(item => item.parentElement.classList.remove('is-active'))
+                this.parentElement.classList.add('is-active')
+            })
+        })
+      </script> {% endcomment %}
+  </body>
+</html>
