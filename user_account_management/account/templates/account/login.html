@@ -1,56 +1,47 @@
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Invoice | Altaf| Bill</title>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
-  </head>
+
+{% block content %}
+
+	<!-- SIGN IN -->
+	<div class="col align-items-center flex-col sign-in">
+		<div class="form-wrapper align-items-center">
+			<div class="form sign-in">
+
+				<form action="{% url 'account:loginpage' %} " method="POST"  enctype="multipart/form-data">  
+					{% csrf_token %} 
+					<input type="hidden" name="form_type" value="formTwo">
+				<div class="input-group">
+					<i class='bx bxs-user'></i>
+					<input type="text" placeholder="Username" name="username" required>
+				</div>
+				<div class="input-group">
+					<i class='bx bxs-lock-alt'></i>
+					<input type="password" name="password" placeholder="password" required>
+				</div>
+				<button type="submit">
+					Sign in
+				</button>
+			</form>
 
 
-  <body>
-
-    <section class="forms-section">
-        <h1 class="section-title">Animated Forms</h1>
-
-        <div class="forms">
-
-     <div class="form-wrapper">
-		<button type="button" class="switcher switcher-login">
-		  Login
-		  <span class="underline"></span>
-		</button>
-
-		<form class="form form-login" method="POST" enctype="multipart/form-data">
-			{% csrf_token %}
-			<input type="hidden" name="form_type" value="formOne">
-		  <fieldset>
-			<legend>Please, enter your email and password for login.</legend>
-			<div class="input-block">
-			  <label for="login-email">Username</label>
-			  <input name="username" id="login-email" type="text" required>
+				<p>
+					<b>
+						Forgot password?
+					</b>
+				</p>
+				<p>
+					<span>
+						Don't have an account?
+					</span>
+					<b onclick="toggle()" class="pointer">
+						Sign up here
+					</b>
+				</p>
 			</div>
-			<div class="input-block">
-			  <label for="login-password">Password</label>
-			  <input name="password" id="login-password" type="password" required>
-			</div>
-		  </fieldset>
-		  <button type="submit" class="btn-login">Login</button>
-		</form>
+		</div>
+		<div class="form-wrapper">
 
-
-	  </div>
-	</section>
-	  {% comment %} <script>
-        const switchers = [...document.querySelectorAll('.switcher')]
-        switchers.forEach(item => {
-            item.addEventListener('click', function() {
-                switchers.forEach(item => item.parentElement.classList.remove('is-active'))
-                this.parentElement.classList.add('is-active')
-            })
-        })
-      </script> {% endcomment %}
-  </body>
-</html>
+		</div>
+	</div>
+	<!-- END SIGN IN -->
+{% endblock %}

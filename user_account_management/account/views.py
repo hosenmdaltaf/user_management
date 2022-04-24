@@ -11,7 +11,7 @@ from account.forms import UserRegisterForm
 # Create your views here.
 @login_required(login_url ='/')
 def homepage(request):
-    return HttpResponse('This is homepage friends ---------------')
+    return HttpResponse('Hi ------------------------ this is home page ---------------')
 
 
 
@@ -31,31 +31,36 @@ def register_edit(request):
 
 
 
-# def register(request):
-#     if request.POST.get("form_type") == 'formOne':
-#         username = request.POST.get('username')
-#         email = request.POST.get('email')
-#         password1 = request.POST.get('password1')
-#         password2 = request.POST.get('password2')
-#         if password1 != password2 :
-#             messages.warning(request,  'Your password is not currect!')
-#         if username.exist()
-#             messages.warning(request,  'Please select another username this name already exist')
-#         if email.exits()
-#             messages.warning(request,  'Please select another email this email already in use')
-#         else:
-#             newUser=User.objects.create_user(username=username,email=email,password1=password1,password2=password2)
-#             print(newUser)
-#             b=newUser.save()
-#             print(b)
-#             messages.success(request,  'Your account has been successfully created')
+def register(request):
+    if request.POST.get("form_type") == 'formOne':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        if password1 != password2 :
+            messages.warning(request,  'Your password is not same!')
+        username_exists = User.objects.filter(username=username)
+        if username_exists.exists():
+            messages.warning(request,  'Please select another username this name already exist')
+        email_exists = User.objects.filter(email=email)
+        if email_exists.exists():
+            messages.warning(request,  'Please select another email this email already in use')
+        # redirect('account:registerpage')
+        
+        # else:
+        #     newUser=User.objects.create_user(username=username,email=email)
+        #     b=newUser.set_password(password1)
+        #     print(newUser)
+        #     # b=newUser.save()
+        #     print(b)
+        #     messages.success(request,  'Your account has been successfully created')
 
-#         # username = newUser.cleaned_data.get('username')
-#         # raw_password = newUser.cleaned_data.get('password1')
-#         # user = authenticate(username=username, password=raw_password)
-#         # login(request, user)
-#         # return redirect('homepage')
-#     return render(request,'account/homepage.html') 
+        # username = newUser.cleaned_data.get('username')
+        # raw_password = newUser.cleaned_data.get('password1')
+        # user = authenticate(username=username, password=raw_password)
+        # login(request, user)
+        # return redirect('homepage')
+    return render(request,'account/homepage.html') 
         
 
 def loginview(request):

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Invoice | Altaf| Bill</title>
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
 
 
@@ -19,29 +20,33 @@
 			<!-- SIGN UP -->
 			<div class="col align-items-center flex-col sign-up">
 				<div class="form-wrapper align-items-center">
-					<div class="form sign-up">
+					<div class="form sign-up" >
 
-
-                    <form action="{% url 'registerpage' %}" method="POST"  enctype="multipart/form-data">  
+                    <form action="{% url 'account:registerpage' %}" method="POST" id="post-form"  enctype="multipart/form-data">  
                             {% csrf_token %} 
                             <input type="hidden" name="form_type" value="formOne">
+							{% if messages %}
+							{% for message in messages %}
+							<p>{{message}}</p>
+							{% endfor %}
+							{% endif %}
 						<div class="input-group">
 							<i class='bx bxs-user'></i>
-							<input type="text" placeholder="Username" name="username" required> 
+							<input type="text" placeholder="Username" name="username" id="username" required> 
 						</div>
 						<div class="input-group">
 							<i class='bx bx-mail-send'></i>
-							<input type="email" placeholder="Email" name="email" required>
+							<input type="email" placeholder="Email" name="email" id="email" required>
 						</div>
 						<div class="input-group">
 							<i class='bx bxs-lock-alt'></i>
-							<input type="password" placeholder="Password" name="password1" required>
+							<input type="password" placeholder="Password" name="password1" id="password1" required>
 						</div>
 						<div class="input-group">
 							<i class='bx bxs-lock-alt'></i>
-							<input type="password" placeholder="Confirm password" name="password2" required>
+							<input type="password" placeholder="Confirm password" name="password2" id="password2" required>
 						</div>
-						<button type="submit">
+						<button type="submit" id="defaultsub">
 							Sign up
 						</button>
                     </form>
@@ -65,7 +70,7 @@
 				<div class="form-wrapper align-items-center">
 					<div class="form sign-in">
 
-                        <form action="{% url 'loginpage' %} " method="POST"  enctype="multipart/form-data">  
+                        <form action="{% url 'account:loginpage' %} " method="POST"  enctype="multipart/form-data">  
                             {% csrf_token %} 
                             <input type="hidden" name="form_type" value="formTwo">
 						<div class="input-group">
@@ -138,6 +143,7 @@
 		<!-- END CONTENT SECTION -->
 	</div>
 
+	{% comment %} <script src="/static/js/jquery-2.2.4.min.js"></script> {% endcomment %}
     <script>
 
         let container = document.getElementById('container')
@@ -149,8 +155,48 @@
 
         setTimeout(() => {
             container.classList.add('sign-in')
-        }, 200)
+        }, 200) 
 
+	
+		{% comment %} $(document).on('submit', '#post-form',function(e){   {% endcomment %}
+
+		$('#post-form').on('click','#defaultsub',function(e){ 
+	
+			console.log(e);         
+			e.preventDefault();
+			const username = $('#username').val();
+			const email = $('#email').val();
+			const password1 = $('#password1').val();
+			const password2 = $('#password2').val();
+
+			mydata ={username:username,email:email,password1:password1,
+				password2:password2}
+			  $.ajax({
+				   url: "{% url 'account:registerpage' %}",
+				   method:"POST",
+				   data:mydata,
+					dataType: "json",
+				   }, 
+
+				   success: function(data){
+					   console.log(data)
+					   console.log(data.username)
+				   },
+			
+				   failure: function() {
+					{% if messages %}
+					{% for message in messages %}
+					<p>{{message}}</p>
+					{% endfor %}
+					{% endif %}
+					   
+				   }
+			
+			
+			   });
+			
+			
+					});   
 
     </script>
 
