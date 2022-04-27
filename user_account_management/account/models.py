@@ -34,11 +34,12 @@ class Profile(models.Model):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()

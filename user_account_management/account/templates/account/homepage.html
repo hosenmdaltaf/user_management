@@ -16,15 +16,57 @@
     <div id="container" class="container">
 		<!-- FORM SECTION -->
 		<div class="row">
+			<!-- SIGN IN -->
+			<div class="col align-items-center flex-col sign-in" id="sigin-in-page">
+				<div class="form-wrapper align-items-center">
+					<div class="form sign-in">
 
+                        <form action="{% url 'account:loginpage' %} " method="POST"  enctype="multipart/form-data">  
+                            {% csrf_token %} 
+                            <input type="hidden" name="form_type" value="formOne">
+						<div class="input-group">
+							<i class='bx bxs-user'></i>
+							<input type="text" placeholder="Username" name="username" required>
+						</div>
+						<div class="input-group">
+							<i class='bx bxs-lock-alt'></i>
+							<input type="password" name="password" placeholder="password" required>
+						</div>
+						<button type="submit">
+							Sign in
+						</button>
+                    </form>
+
+
+						<p>
+							<b>
+								Forgot password?
+							</b>
+						</p>
+						<p>
+							<span>
+								Don't have an account?
+							</span>
+							<b onclick="toggle()" class="pointer">
+								Sign up here
+							</b>
+						</p>
+					</div>
+				</div>
+				<div class="form-wrapper">
+		
+				</div>
+			</div>
+			<!-- END SIGN IN -->
+			
 			<!-- SIGN UP -->
-			<div class="col align-items-center flex-col sign-up">
+			<div class="col align-items-center flex-col sign-up" id="sigin-up-page">
 				<div class="form-wrapper align-items-center">
 					<div class="form sign-up" >
 
                     <form action="{% url 'account:registerpage' %}" method="POST" id="post-form"  enctype="multipart/form-data">  
                             {% csrf_token %} 
-                            <input type="hidden" name="form_type" value="formOne">
+                            <input type="hidden" name="form_type" value="formTwo">
 							{% if messages %}
 							{% for message in messages %}
 							<p>{{message}}</p>
@@ -63,50 +105,6 @@
 				</div>
 			</div>
 			<!-- END SIGN UP -->
-
-
-			<!-- SIGN IN -->
-			<div class="col align-items-center flex-col sign-in">
-				<div class="form-wrapper align-items-center">
-					<div class="form sign-in">
-
-                        <form action="{% url 'account:loginpage' %} " method="POST"  enctype="multipart/form-data">  
-                            {% csrf_token %} 
-                            <input type="hidden" name="form_type" value="formTwo">
-						<div class="input-group">
-							<i class='bx bxs-user'></i>
-							<input type="text" placeholder="Username" name="username" required>
-						</div>
-						<div class="input-group">
-							<i class='bx bxs-lock-alt'></i>
-							<input type="password" name="password" placeholder="password" required>
-						</div>
-						<button type="submit">
-							Sign in
-						</button>
-                    </form>
-
-
-						<p>
-							<b>
-								Forgot password?
-							</b>
-						</p>
-						<p>
-							<span>
-								Don't have an account?
-							</span>
-							<b onclick="toggle()" class="pointer">
-								Sign up here
-							</b>
-						</p>
-					</div>
-				</div>
-				<div class="form-wrapper">
-		
-				</div>
-			</div>
-			<!-- END SIGN IN -->
 
 
 		</div>
@@ -149,8 +147,9 @@
         let container = document.getElementById('container')
 
         toggle = () => {
-            container.classList.toggle('sign-in')
+            
             container.classList.toggle('sign-up')
+			container.classList.toggle('sign-in')
         }
 
         setTimeout(() => {
@@ -160,7 +159,7 @@
 	
 		{% comment %} $(document).on('submit', '#post-form',function(e){   {% endcomment %}
 
-		$('#post-form').on('click','#defaultsub',function(e){ 
+		{% comment %} $('#post-form').on('click','#defaultsub',function(e){ 
 	
 			console.log(e);         
 			e.preventDefault();
@@ -196,7 +195,7 @@
 			   });
 			
 			
-					});   
+					});    {% endcomment %}
 
     </script>
 
