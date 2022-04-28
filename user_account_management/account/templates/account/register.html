@@ -9,18 +9,18 @@
   <div class="container">
       <div class="row d-flex justify-content-center">
           <div class="col-md-offset-3 col-md-6">
-              <div class="form-container">
+              <div class="form-container" style="margin-top:70px;">
                   <h3 class="title">Register</h3>
                   <form class="form-horizontal" method="POST">
                     {% csrf_token %}
 
-                  {% if messages %}
+                  {% comment %} {% if messages %}
                     {% for message in messages %}
                     <div class="form-group">
                       <label style="color:red;">{{message}}</label>
                   </div>
                     {% endfor %}
-                    {% endif %} 
+                    {% endif %}  {% endcomment %}
 
                       <div class="form-group">
                           <label>User Name</label>
@@ -39,7 +39,7 @@
                           <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
                       </div>
                       <button class="btn signup" type="submit">Create Account</button>
-                      <span class="signin-link">Already have an account? Click here to <a href="">Login</a></span>
+                      <span class="signin-link">Already have an account? Click here to <a href="{% url 'account:loginpage' %}">Login</a></span>
                      
                   </form>
               </div>
